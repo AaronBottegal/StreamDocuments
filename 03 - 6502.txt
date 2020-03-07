@@ -1,0 +1,83 @@
+6502 Overview
+=============
+
+Any questions about anything, ask in chat!
+
+The 6502 is the processor the NES uses. It is an 8 bit processor running at 1.78 million clocks per second.
+It has three main 8-bit "registers": A, X, and Y.
+
+Registers are basically just internal groups of bits you can manipulate with instructions.
+
+Loading and storing values to/from these "registers" are how NES games work.
+
+A is called the accumulator register. It is used for most mathematic operations. E.g. Add and subtract.
+
+The X and Y registers are called the index registers. Indexes registers change what location is accessed.
+E.g. LDA $200,X loads A with the value at $200+X. If X=#$20, it loads data from $220.
+$200,X is called an addressing mode, AKA how to access the data. We will talk more about these on another tab.
+
+The NES also has a special register called the "Processor Status", or P.
+P has special "status" bits that represent the last mathematical operation's results.
+Those status bits are how the instructions know what "decision" to make on moving to other code.
+All instructions which move or alter any values set each flag appropriatly, if applicable. Even simply loading values.
+
+There is another special register called "PC", or program counter. It is where your current code is running.
+It is a 16-bit register, since the NES uses 16 bits of "address space" that can be accessed. $0000 to $FFFF.
+
+Lastly there is another special register called the stack, or "S". We will talk about this more later.
+
+Main instructions (also called opcodes, operation codes):
+    LDA - Load A with a value.
+    STA - Store the value in A somewhere.
+    LDX - Load X with a value.
+    LDY - Load Y with a value.
+    STX - Store the value in X somewhere.
+    STY - Store the value in Y somewhere.
+    INX - Increase X by 1.
+    INY - Increase Y by 1.
+    DEX - Decrease X by 1.
+    DEY - Decrease Y by 1.
+    TAX - Transfer A to X.
+    TAY - Transfer A to Y.
+    TXA - Transfer X to A.
+    TYA - Transfer Y to A.
+
+Math opcodes:
+    AND - Binary AND with the A register.
+    ORA - Binary OR with the A register.
+    EOR - Binary EOR with the A register.
+    CMP - Compare A to something.
+    CPX - Compare X to something.
+    CPY - Compare Y to something.
+    ADC - Add to the A register (With carry. If Carry is 1, adds 1 extra.)
+    SBC - Subtract from the A register (With carry. If Carry is 0, subtracts 1 extra.)
+    ASL - Arithmatic Shift Left (Multiply by 2) the A register. Brings #0 into bit 0.
+    LSR - Logical Shift Right (Divide by 2) the A register. Brings #0 into bit 7.
+    ROL - Rotate all bits in A left. Carry status is brought into bit 0.
+    ROR - Rotate all bits in A right. Carry status is brought into bit 7.
+
+Flow changing opcodes:
+    JMP - Jumps to another piece of code, always done.
+    JSR - Jump to a subroutine. Saves the next line of code to run and goes elsewhere to run code.
+    RTS - Return from a subroutine. Comes back to where the subroutine was called and continues running.
+    BEQ - Branch to other code if the last math operation equaled 0.
+    BNE - Branch to other code if the last math operation was not equal to 0.
+    BCS - Branch to other code if the last math operation had the carry set to 1.
+    BCC - Branch to other code if the last math operation had the carry clear to 0.
+    BMI - Branch to other code if the last math operation resulted in a negative number.
+    BPL - Branch to other code if the last math operation resulted in a positive number.
+    BVS - Branch to other code if the last (signed) math operation change sign.
+    BVS - Branch to other code if the last (signed) math operation did not change sign.
+
+Other opcodes:
+    TXS - Transfer X to S.
+    PHP - Push P to the stack.
+    PHA - Push A to the stack.
+    PLA - Pull A from the stack.
+    PLP - Pull P from the stack.
+    RTI - Return from Interrupt.
+    SEC - Set Carry Status.
+    CLC - Clear Carry Status
+
+REMEMBER: ALL instructions change applicable processor status (P) bit.
+E.g. Simply loading a value will set the ZERO and SIGNED NEGATIVE bits automatically.

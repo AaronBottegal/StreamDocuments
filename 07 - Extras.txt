@@ -1,0 +1,53 @@
+Extras:
+
+Any questions about anything, ask in chat!
+
+CPU:
+    Processor status bits:
+        7  bit  0
+        ---- ----
+        NVss DIZC
+        |||| ||||
+        |||| |||+- Carry status.
+        |||| ||+-- Zero status.
+        |||| |+--- Interrupt Disable.
+        |||| +---- Decimal Flag (Unused on the NES.)
+        ||++------ No CPU effect, see: the B flag
+        |+-------- Overflow status.
+        +--------- Negative status
+
+CPU Stack:
+    The stack is an 8-bit register (S) that is used to store temporary information.
+    The stack range is $0100 to $01FF, or $01SS. SS is the 8-bit stack value.
+    The stack moves DOWN when information is put onto it.
+        Because of this, you usually start the stack at #$FF, or $01FF.
+    The stack is how JSR's work. JSR puts the next instruction ahead of the JSR onto the stack.
+        When an RTS instruction is ran, the location that was JSR'd from gets returned to by pulling off the stack.
+    You can push and pull values from the A register on to/off of the stack.
+        This can save variable space and ROM because pushing and pulling A is a one byte instruction.
+        But PHA/PLA isn't ever the fastest option. Zeropage stores are more ROM, but are faster. Always a tradeoff.
+        (The smallest store (zeropage store.) is 2 bytes, which is how it still saves ROM space.)
+
+PPU Extras:
+    PPU displays sprites using OAM. Object attribute memory.
+        These "objects" (called sprites) are displayed on top of the background.
+        These are usually use for the moving characters and non-static objects in games.
+    To upload the sprites to the PPU, you have to write the sprite OAM data using special registers.
+        .OAM data is 256 bytes. Writing each byte in code would take a long time.
+        To do this faster, you use the special PPU OAM DMA register.
+            DMA stands for direct memory access. It moves the data for you manually, basically.
+    The DMA hardware pauses the CPU and moves the data for you.
+        (It's about 10x faster than doing it manually, so your game can do more complex things elsewhere.)
+    Using PPU register $4014, you can store the high byte ($XX00) of the OAM sprite data.
+        This write triggers the DMA harwdare to pause the CPU and move the data to the PPU OAM register for you.
+        It will upload the 256 bytes of OAM data in ~512 cycles. This helps not slow down the NES.
+        OAM is 4 bytes per object. 256 bytes of OAM provide you 64 sprites on screen.
+    If 8 sprite objects are on the same horizontal line, the PPU can't display them all.
+        It will show the first 8 lowest objects in OAM memory. Any more do not get displayed.
+        This is why objects flicker with too many things in a row.
+        The flickering is added in by the game to try to make sure you can see all objects.
+    OAM data format is as follows.
+        Byte 0: YYYY YYYY - Sprite Y position on screen.
+        Byte 1: TTTT TTTT - Tile index. Aka which 8x8 pixels from graphics ROM are this "sprite" image.
+        Byte 2: VHB- --PP - (V) Vertical flip, (H) Horizontal flip, (B) Behind background enable, (P) Palette index, 0 (%00) to 3 (%11).
+        Byte 3: XXXX XXXX - Sprite X position on screen.

@@ -1,0 +1,52 @@
+Bitwise operators:
+==================
+
+Any questions about anything, ask in chat!
+
+When working with values representing binary, we have certain operations we do per-bit:
+
+Bitwise AND (&): If both bits are 1, output is 1.
+0 & 0 = 0
+0 & 1 = 0
+1 & 0 = 0
+1 & 1 = 1
+
+Bitwise OR (|): If either bit is 1, output is 1.
+0 | 0 = 0
+0 | 1 = 1
+1 | 0 = 1
+1 | 1 = 1
+
+Bitwise NOT (^): If either (But not both) are 1, output is 1.
+0 ^ 0 = 0
+0 ^ 1 = 1
+1 ^ 0 = 1
+1 ^ 1 = 0
+
+Bitwise EOR (Exclusive OR, sometimes called XOR): Same as Bitwise NOT.
+0 ^ 0 = 0
+0 ^ 1 = 1
+1 ^ 0 = 1
+1 ^ 1 = 0
+
+Rotate Right (LSR, Logical Shift Right): Move all bits one space to the right.
+E.g. 10100010 turns into 01010001.
+
+Rotate Left (ASL, Arithmatic Shift Left): Move all bits one space to the left.
+E.g. 01010001 turns into 10100010.
+
+The NES has certain instructions that work exclusively on the binary representations of values:
+
+AND: Bitwise AND with the A register.
+ORA: Bitwise OR with the A register.
+EOR: Bitwise EOR with the A register.
+LSR: Divide by two. Each bit set is worth half when moved right, halving the value.
+ASL: Multiply by two. Each bit set is worth double the value when moved left, doubling the value.
+
+You can set and clear bits in the A register using these instructions. This is their primary purpose.
+
+AND can be thought of as "Set to 1 if already set."
+OR can be thought of as "Set to 1 always."
+EOR can be thought of as "Invert this if set."
+
+You now know everything about bitwise operators in the 6502!
