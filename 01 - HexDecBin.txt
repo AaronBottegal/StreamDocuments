@@ -24,27 +24,39 @@ To represent values larger than 0 or 1, computers use multiple bits together in 
 8 bits together are called a "byte". 16 together is called a "word". 32 is called a "dword" (double word).
 
 Each of the above representations can add more characters to represent bigger values.
-The NES works with 8 bits (1 byte) at a time which allows values up to 255 (0xFF, 0b1111 1111) to be stored.
 
-Binary and bits are especially important to understand, because the NES works with
+Binary and bits are especially important to understand, because microprocessors work with
 "registers" to store values to tell the system how to operate. Some of the values
 are really multiple single bits being enabled/disabled that do different things.
 What might be represented as #$80 (128, %1000 0000) in code could represent enabling one bit as shown in binary.
 
-To find how big a number you can hold in X bits is (2^X)-1.
-Using that formula, a 32 bit (4 byte, 2 word, 1 dword) processor can hold from 0 to 4294967295!
+To find how big an unsigned value you can hold in X bits is (2^X)-1.
+Using that formula, a 32 bit (4 byte, 2 word, 1 dword) processor can hold from 0 to 4294967295.
+16-bit holds 0 to 65535.
+8-bit holds 0-255.
 
 All this info is used to understand what is being represented. A majority of the
 time, the value is just that, a value. But it could also might be representing binary bits
-to tell the system how to operate. We will learn about this when we learn how the NES works.
+to tell the system how to operate.
 
-The 6502 processor in the NES provides both:
-signed (Values range from -128 [%1000 0000] to +127 [%0111 1111]) and
-unsigned (no negative, value is 0 [%0000 0000] to 255 [%1111 1111]) numbers.
-The highest bit (0b1000 0000) is called the "sign" bit. It means "this number is negative." if set to 1.
-The logic of how to use negative values without changing signs on the 6502 is called "Two's Compliment"
+
+Another important idea is how there's two ways to think about binary numbers, called the sign.
+If adding %0001 to %1111, the results is 0000. But if adding %1111 to %1111, the result is %1110.
+This is effectively a subtraction. This idea is where signed numbers come from. Basically, the
+highest bit in a number because a flag for positive/negative, so adding a value can also
+be though of of a subtraction. E.g. Adding %11111111 in an 8-bit value is the same as -1.
+
+Here are the ranges for each value bit length, if thought of as signed.
+8-bit signed values range from -128 [%1000 0000] to +127 [%0111 1111])
+16-bit signed values range from -32768 to 32767.
+32-bit signed values range from -2,147,483,648 to 2,147,483,647
+
+The reason why the negative number is always larger is because 0 is a positive number,
+meaning there's one less "positive" value that isn't 0.
+
 
 HEX/DEC/BIN Conversion chart:
+Keep this around for fast binary to hex conversions.
 
 +-----+-----+------+
 | DEC | HEX |  BIN |
