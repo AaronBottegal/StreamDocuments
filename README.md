@@ -14,7 +14,7 @@ Lastly, read the documents in the folder of the systems name. E.g. NES, Williams
 
 If you are interested in learning about Duck Hunt's code, the processor is 6502 and the system is NES.
 
-If you are interested in learning about Defender's code, I will be making these documents soon. I'll explain it all in stream for now.
+If you are interested in learning about Defender's code, I will be making these documents soon. I'll explain any questions in stream for now.
 Defender's processor will be 6809 and the platform will be Williams.
 
 But if you have ANY issues understanding ANY of it, I encourage you to come chat in the stream to ask any questions you need to understand clearer! I stream to teach people general programming, assembly language programming, Linux (Which is what I stream on), git, and any subject you think I could explain! So please, talk to me and ask me any questions in any of those realms. I, and maybe later on, others, will be able to help you and let you understand our very interesting work!
@@ -33,4 +33,4 @@ Website: [aaronbottegal.com](http://aaronbottegal.com) (Lots of cool things here
 
 (Currently looking for an IT/Programming job. Use my website to contact me if you think I could help you! Resume available on my website.)
 
-Come chat in stream!  
+Come chat in stream!

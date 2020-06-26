@@ -1,0 +1,29 @@
+Computer Systems
+================
+
+*READ THE LAST LINE IF YOU KNOW WHAT A COMPUTER IS*
+
+In this document we will go over computers as a whole.
+
+We will start with what a computer is.
+
+A computer is something that does a lot of math. Like, millions of calculations a second a lot.
+
+These repaid calculations are how stuff is built. E.g. Video Games, Word Processors, Computer Generated Graphics, Etc.
+
+Facilitiating these calculation is the Microprocessor. It is responsible for handling those calculations.
+
+The list of the calculations, and how to do them, is called the program. The program is basically the script of calculations to perform and other actions, like reading input or displaying something.
+
+The results of running the program script are put in memory, called RAM. RAM is usually used for data that is needed a lot, or quickly. Results of computations, more programs, etc.
+
+The program in older systems was stored in ROM, or Read Only Memory. This is just where the programs are held.
+
+The processor uses the program in the ROM's, and the rewritable RAM memory to keep track of everything it needs to perform its task.
+
+Game consoles are purpose-specific computers. The game cartridges were the ROM that ran the game you purchased.
+
+Modern computers are run by memory that can be read and written to, and is managed by something like Windows or Linux, also called the OS, or Operating System.
+
+
+We are focusing on the code in the content I create, but understanding the code means understanding the computer as a whole. Because of this, I will be making "primers" on every processor and hardware configuration to teach you how that computer hardware functions entirely. These videos will be broken down as much as possible. If you need any help understanding anything in the primers, please don't hesitate  to ask me on Twitch to clear it up, I'm more than happy to help! Even if it's for new development on the hardware, I'll gladly give advice, tips, or even code, to help you out as much as I resonably can. :D
