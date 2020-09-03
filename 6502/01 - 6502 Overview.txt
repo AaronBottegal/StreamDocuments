@@ -1,0 +1,80 @@
+6502 Overview
+=============
+
+The 6502 is the processor the NES uses. It is an 8 bit processor running at 1.78 MHz.
+
+It is little endian, meaning 16-bit values are stored least to most significant.
+
+It has three main registers: A, X, and Y.
+
+Each of these register is 8-bit.
+
+Registers are basically just internal groups of bits you can manipulate with instructions.
+
+Loading and storing values to/from these registers are how it processes data.
+
+There are two main types of register on the 6502, the accumulator (A) and the index registers. (X & Y)
+
+The A (Accumulator) register is used for most mathematic operations. E.g. Add and subtract.
+
+The X and Y registers are called the index registers. Indexes registers usually are used to change what location is accessed in some addressing modes.
+
+E.g. LDA $200,X loads A with the value at $200+X. If X = #$20, it loads data from address $0220.
+
+$200,X is an addressing mode call the absolute indexed addressing mode. We will learn more all the addressing modes in the next lesson. But, in short, AKA how to access the data. We will talk more about these on another tab.
+
+
+Program Counter
+===============
+
+The most basic and important register is called the "PC" register, or program counter. It is the address where your current code is running.
+
+To load this register, there's opcodes like JMP what will load the PC register with whatever address is given to the JMP instruction.
+
+The program counter is loaded with the value at $FFFC to know where to start running code.
+
+
+Processor Status
+================
+
+The 6502 also has a special register called the "Processor Status", or P register.
+
+P has special "status" bits that represent the last mathematical operation's results.
+
+Those status bits are how the instructions know what "decision" to make when moving forward in the code.
+
+E.g. If the last operation was zero, not zero, less than, more than, etc. The P register "remembers" this for future instructions to make decisions on.
+
+All instructions which move or alter any values set a bit flag appropriatly, if applicable. Even simply loading values sets some processor status bits!
+
+
+Stack Register
+==============
+
+Lastly there is another special register called "S", or the "stack."
+
+S is weird that it can only be loaded from the X register, by transferring a value to it from X.
+
+The stack is an 8-bit register. It is fixed in the $01XX range on the 6502. XX denotes the bits which are loaded from the S register to form the full address.
+
+As it sounds, you can stack values here to temporarily remember them. These operations are called pushes and pulls. A push puts something on the stack, and a pull recalls it.
+
+Only the A and processor status registers can be pushed or pulled.
+
+E.g. S = #$FF, PHA puts A to $01FF. After this operation, the new stack value is #$FE as the stack grows downward.
+
+If a PLA is done, pulling the value back into A, A will be recalled from the stack at $01FF.
+
+
+Interrupts
+==========
+
+The 6502 has multiple interrupts.
+
+RESET, which resets the processor.
+
+NMI, which is the "Non-Maskable Interrupt."
+
+IRQ, which is the "Interrupt Request." This interrupt can be blocked by the program on the CPU. This is the general purpose IRQ.
+
+These are the main interrupts, and their use varies by system hardware.

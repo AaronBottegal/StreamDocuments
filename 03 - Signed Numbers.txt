@@ -1,0 +1,39 @@
+Signed Numbers
+==============
+
+While you may be familiar with numbers being presented like a point on a line, computers don't behave the same.
+Computer numbers can be more easily thought of as a point on a circle. The more bits you have, the more points you can point to on the cicle.
+
+Think of a 4-bit circle:
+0  (#%0000, #$0) is at the top.
+4  (#%0100, #$4) is on the right.
+8  (#%1000, #$8) is on the bottom.
+12 (#%1100, #$C) is on the left.
+
+Point on the circle starts at the top, 0.
+0  (#%1000, #$0) +  8 (#%1000, #$8) Point on circle is now on the bottom.
+8  (#%1000, #$8) +  4 (#%1000, #$8) Point on the circle is now on the left.
+12 (#%1100, #$C) +  4 (#%1000, #$4) Point is now at the top.
+
+The point winds up back at 0. This is because 12 + 4 = 16 (#%10000, #$10), but with 4 bits, we can't represent it, as 4 bits holds only 0 to 15.
+Even though the bit would be turned on had we had 5 bits, because of our bit limit, the 5th bit doesn't exist.
+
+Note that the bottom bits of the value are correct, we just lose information on how many times around we have went.
+
+This is why binary numbers should be thought of as a circle, as you wrap around it if you do operations that don't fit in your bits.
+
+This can also be used to perform subtraction by addition. The sign of a number is the idea of last (most significant, aka largest) bit being 1 means "negative."
+
+E.g. Adding 15 (#%1111, #$F) to #%0000 is the same as subtracting 1 because they both end up at the same point on the circle.
+
+Same with starting at 0 and adding 14 (#%1110, #$0E), we end up 2 spots counter clockwise from our original position, even though we added to it. This is the same as subtracting 2 from 0 in binary, resulting in +14/-2 (%1110, #$0E).
+
+This specific version of signed numbers is called two's complement, but there is an alternative sign system called ones compliment, but it is uncommonly used. It is also slightly more confusing to explain, so we won't here. But feel free to learn it on your own, if you'd like. We probably will never see it anywhere on this channel or in any code we find, but it is good to understand if studying this to code professionally.
+
+The ranges of signed numbers per bit size is as follows:
+
+8  bits: -128 to +127
+16 bits: -32768 to 32767
+32 bits: −2,147,483,648 to 2,147,483,647
+
+The reason why there is one less positive for each is because 0 is a positive signed number, taking up one combination of the "positive" numbers.

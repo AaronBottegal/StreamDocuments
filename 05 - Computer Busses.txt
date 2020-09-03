@@ -1,0 +1,68 @@
+Computer Busses
+===============
+
+A bus in a computer is the way the comnputer's hardware like the processor, graphics, and sound chips communicate.
+
+A processor usually has at least two busses. A address bus, and a data bus.
+
+The address bus is usually 16 bits, or 16 pins, on the processor. This bus is used to determine what device the processor is requesting.
+
+For example, if you check the most significant (top) bit of the address to determine if you're accessing the computer's ROM or RAM, with the RAM being enabled when that bit is 0, the address map of the hardware would be:
+
+$0000 to $7FFF: RAM
+$8000 to $FFFF: ROM
+
+The computer's hardware would have the appropriate logic chips on the board that would send the appropriate signals to either device to activate it when needed based on the hardware layout wanted, E.g. Disabling ROM when the top bit is 0, and disabling RAM when the top bit is 1.
+
+This address bus is segmented many different ways based on each system, usually with RAM being at the beginning of address space at $0000, ROM being in the highest region (E.g. $8000 - $FFFF) and the hardware addresses (called registers) being in the middle between the ROM and RAM regions (E.g. RAM from $0000 to $1FFF, System Hardware $2000-$5FFF, ROM $6000 - $FFFF). These large regions are called "address space". Address space is literally the "space" the device takes up in the address bus, and how you can access it.
+
+Let's say you wanted top interface RAM at $0000, video hardware at $4000, sound hardware at $8000, and ROM at $A000. You could easily do this by looking only at the top two bits and enabling the appropriate device based on that, E.g.
+
+The periods are used to make reading the binary bits easier. X means insignificant value, where 0 or 1 denotes what value is required to be true.
+
+%00XX.XXXX.XXXX.XXXX = RAM Access
+%01XX.XXXX.XXXX.XXXX = Video Hardware Access
+%10XX.XXXX.XXXX.XXXX = Sound Hardware Access
+%11XX.XXXX.XXXX.XXXX = ROM Access
+
+As you can see, two bits is all you need to determine what "region" of the address bus you're accessing. This is how multiple devices access the computer hardware, and how one processor can access many different devices, by changing the locations of the address bus it is working with. This is how the programs running on the devices determine what they're manipulating, be it RAM, video hardware, or expansion devices.
+
+
+The Data Bus
+============
+
+The reason there is two busses on most processors is because not only do you need a bus to determine what device you're accessing, you also need one to actually read/write values to it. This is where the data bus comes in.
+
+The data bus is (in our case) usually an 8 bit bus, being able to manipulate 8 bits of data at once.
+
+The processors use this to manipulate the hardware bits defined at the location the address bus points to.
+
+In addition to the 8 bits of data, there is also a read/write pin to know how to manipulate the address.For example, ROM is read only memory, and is only accessed by reading. RAM is random access memory, and the random also applies to reading or writing. RAM can be read to get the previous value, or written to update the value at an address.
+
+This pins value, 0 or 1, will mean read or write for the hardware registers. Registers 
+
+Registers can be write only, read only, or even do different things on write and read! So the outcome of reading or writing any register will change completely based on the hardware.
+
+
+Address Mirroring
+=================
+
+The last topic on busses is address mirroring.
+
+Mirroring happens because of ignored bits for determining if a register is being accessed. Remember, a register is a "port" of the device, which is changed depending on the address bus.
+
+X's denote bits that do not matter if they are 0 or 1.
+
+E.g. On the NES, there's address registers at $2000 to $2007. To determine if the device is being accessed, they check bits 0010.XXXX.XXXX.XXXX to enable the device.
+
+The device at $2000 has registers from $2000 to $2007, or $%0010.XXXX.XXXX.X000 to $%0010.XXXX.XXXX.X111. The top (most significant) bits enable the device, while the bottom (least significant) bits determine which register is being accessed.
+
+The next hardware area is at $4000, or 0100.XXXX.XXXX.XXXX.
+
+Because the device is activated at $2000 to $3FFF because of which bits used to determine if the hardware is activated, the entire range of $2000 to $3FFF has the registers from $2000 to $2007 in it. E.g. $2008 = $2000 register, $3FFF = $2007, etc.
+
+This happens because since they never make decisions about enabling/disabling hardware between the device address (top bits) and the device registers (bottom bits), these bits have no importance when deciding to enable/disable the device, making which bits are on/off irrelevant. This is what causes the "mirror" effect.
+
+While its usually discouraged to write to mirrors, although some programs for game consoles use address mirrors for anti-piracy and to make their code more confusing. It's an important concept to understand as programs could possibly be trying to trick you by writing to "invalid" areas that fall through the mirror to another address elsewhere.
+
+That is all there is to know about computer busses, and with this knowledge you should now be able to follow along the processor tutorials inside the folders.

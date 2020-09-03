@@ -1,0 +1,52 @@
+Extras
+======
+
+Compares
+========
+
+Compares are basically subtraction between the register and the target address/value.
+
+This sets the appropriate status bits.
+
+
+JSR + RTS
+=========
+
+How does the processor know where to return to?!
+
+Answer: The stack. A JSR puts the next instructions address ahead of the JSR onto the stack.
+
+When an RTS instruction is ran, the location that was JSR'd from gets returned to by pulling off the stack.
+
+
+Notice ADC + SBC
+================
+
+The 6502 sadly has no "normal" add and subtract instructions that simply add the value specified.
+
+Instead, they exclusively use Add with carry and Subtract with carry.
+
+Because the carry flag plays a roll in both instructions, they always need to have the proper carry status when doing the initial add or subtract.
+
+For addition, the C flag needs cleared. For subtraction, the C flag needs set.
+
+The reason for this is enabling 16-bit addition and subtraction, as if an overflow or underflow happens, the flag will make an addition add an extra one, or a subtraction will subtract one more value than specified if the flag is 0.
+
+This enables 16-bit addition and subtraction with only 8-bits at a time.
+
+
+Processor Status Bits
+=====================
+
+    Processor status bits:
+        7  bit  0
+        ---- ----
+        NVss DIZC
+        |||| ||||
+        |||| |||+- Carry status.
+        |||| ||+-- Zero status.
+        |||| |+--- Interrupt Disable.
+        |||| +---- Decimal Flag (Unavailable on the NES.)
+        ||++------ No CPU effect, see: the B flag
+        |+-------- Unsigned Overflow status.
+        +--------- Result Signed Negative status flag.

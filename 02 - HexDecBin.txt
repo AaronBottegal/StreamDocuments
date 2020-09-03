@@ -1,8 +1,6 @@
 About binary, decimal, and hexidecimal:
 =======================================
 
-Any questions about anything, ask in chat!
-
 Decimal, Hexadecimal, and Binary are all just ways to represent numbers.
 
 Binary (Bin, denoted by 0b or #%) is what computers use. Each digit (A "bit") has 2 possibilities:
@@ -29,14 +27,14 @@ are really multiple single bits being enabled/disabled that do different things.
 What might be represented as #$80 (128, %1000 0000) in code could represent enabling one bit as shown in binary.
 
 To find how many values you can hold in X bits is 2^X.
-E.g. a 32 bits can hold 4294967296 numbers.
+E.g. 8 bits can hold 256 numbers.
 16 bits can hold 65536 numbers.
-8 bits can hold 256 numbers.
+32 bits can hold 4294967296 numbers.
 
 Because 0 counts as the first combination, the range is actually one less than the total number of combinations.
-E. g. 32 bits: 0 to 4294967295
+E.g. 8 bits: 0 to 255
 16 bits: 0 to 65535
-8 bits: 0 to 255
+32 bits: 0 to 4294967295
 
 HEX/DEC/BIN Conversion chart:
 Keep this around for fast binary to hex conversions.
@@ -62,6 +60,7 @@ Keep this around for fast binary to hex conversions.
 |  15 |   F | 1111 |
 +-----+-----+------+
 
+
 Bit fields
 ==========
 
@@ -70,47 +69,4 @@ One important idea to know of is that values represented as decimal or hex might
 This is important because many times, a byte may contain many settings of a couple bits each.
 E.g. Turning on or off a single feature (1 bit), or setting something to one of 7 states (3 bits), etc.
 
-Bit fields are also important in computer math, which we will touch on now with signed numbers.
-
-Signed Numbers
-==============
-
-While you may be familiar with numbers being presented like a point on a line, computers don't behave the same.
-Computer numbers can be more easily thought of as a point on a circle. The more bits you have, the more points you can point to on the cicle.
-
-Think of a 4-bit circle:
-0  (#%0000, #$0) is at the top.
-4  (#%0100, #$4) is on the right.
-8  (#%1000, #$8) is on the bottom.
-12 (#%1100, #$C) is on the left.
-
-Point on the circle starts at the top, 0.
-0  (#%1000, #$0) +  8 (#%1000, #$8) Point on circle is now on the bottom.
-8  (#%1000, #$8) +  4 (#%1000, #$8) Point on the circle is now on the left.
-12 (#%1100, #$C) +  4 (#%1000, #$4) Point is now at the top.
-
-The point winds up back at 0. This is because 12 + 4 = 16 (#%10000, #$10), but with 4 bits, we can't represent it, as 4 bits holds only 0 to 15.
-Even though the bit would be turned on had we had 5 bits, because of our bit limit, the 5th bit doesn't exist.
-
-Note that the bottom bits of the value are correct, we just lose information on how many times around we have went.
-
-This is why binary numbers should be thought of as a circle, as you wrap around it if you do operations that don't fit in your bits.
-
-This can also be used to perform subtraction by addition. The sign of a number is the idea of last bit being 1 means "negative."
-
-E.g. Adding 15 (#%1111, #$F) to #%0000 is the same as subtracting 1 because they both end up at the same point on the circle.
-
-Same with starting at 0 and adding 14 (#%1110, #$0E), we end up 2 spots counter clockwise from our original position, even though we added to it. This is the same as subtracting 2 from 0 in binary, resulting in +14 (%1110, #$0E).
-
-This specific version of signed numbers is called two's complement, but there is an alternative sign system called ones complimentbut. It is not used nearly ever, and is more confusing to explain, so we won't here. But feel free to learn it on your own, if you'd like. We probably will never see it anywhere on this channel or in any code we find, but it is good to understand if studying this to code professionally.
-
-The ranges of signed numbers per bit size is as follows:
-
-8  bits: -128 to +127
-16 bits: -32768 to 32767
-32 bits: −2,147,483,648 to 2,147,483,647
-
-The reason why there is one less positive for each is because 0 is a positive signed number, taking up one combination of the positive numbers.
-
-
-Give yourself a gold star for getting here. To continue learning  to lesson 2 once you understand the content here.
+Bit fields are also important in computer math, which we will touch on now with signed numbers in the next lesson.

@@ -1,29 +1,28 @@
 Computer Systems
 ================
 
-*READ THE LAST LINE IF YOU KNOW WHAT A COMPUTER IS*
+While we are focusing on the code in the content I create, but understanding the code means understanding the computer as a whole. Because of this, I will be making "primers" on every processor and hardware configuration to teach you how that computer hardware functions entirely. These videos will be broken down as much as possible. If you need any help understanding anything in the primers, please don't hesitate to ask me on Twitch or YouTube to clear it up, I'm more than happy to help. Even if it's for new development on the hardware, I'll gladly give advice, tips, or even code to help you out as much as I resonably can!
+
+If for some reason you don't understand the very basics of a computer, please continue reading this and other lessons in this folder to learn about computers in general. If you know about computers, you should dive into the specific processor folders to learn how they operate. Inside each folder is the tutorials and documentation of each processor, and inside of the processor folders are systems that use that processor in it.
 
 In this document we will go over computers as a whole.
 
 We will start with what a computer is.
 
-A computer is something that does a lot of math. Like, millions of calculations a second a lot.
+A computer is something that does a lot of math.
 
-These repaid calculations are how stuff is built. E.g. Video Games, Word Processors, Computer Generated Graphics, Etc.
+How much is a lot? Millions of calculations a second a lot.
 
-Facilitiating these calculation is the Microprocessor. It is responsible for handling those calculations.
+These repaid calculations enable computers to do complex things quickly. These can be used to create video games, word processors, 3D graphics, and much more.
 
-The list of the calculations, and how to do them, is called the program. The program is basically the script of calculations to perform and other actions, like reading input or displaying something.
+The device responsible for these calculation is the microprocessor.
 
-The results of running the program script are put in memory, called RAM. RAM is usually used for data that is needed a lot, or quickly. Results of computations, more programs, etc.
+The list of the calculations, and how to do them, is called the "program", "script", or "code".
 
-The program in older systems was stored in ROM, or Read Only Memory. This is just where the programs are held.
+The results of running the program script can't all be loaded by the processor at once. These results are put in memory, called RAM. RAM stands for Random Access Memory. RAM can be changed to whatever the program wants, enabling storage of any computations the processor does for later. Using RAM, you can recall from tens to millions of results at any time. This is what enables processors to do many things at once, and having the ability to "remember" them if needed later.
 
-The processor uses the program in the ROM's, and the rewritable RAM memory to keep track of everything it needs to perform its task.
+The program to calculate everything to put into RAM and use the hardware in the computer is called the ROM, or Read Only Memory. While RAM can be changed to any value, ROM can not be changed. Games usually run in ROM, and the ROM program is what manages the RAM and other hardware in a computer, enabling sounds, graphics, keyboards, mice, and anything else needed.
 
-Game consoles are purpose-specific computers. The game cartridges were the ROM that ran the game you purchased.
+Game consoles are purpose-specific computers. The game cartridges were the ROM that ran the game you purchased. The system its self has the RAM, video display and sound hardware, controllers, etc.
 
-Modern computers are run by memory that can be read and written to, and is managed by something like Windows or Linux, also called the OS, or Operating System.
-
-
-We are focusing on the code in the content I create, but understanding the code means understanding the computer as a whole. Because of this, I will be making "primers" on every processor and hardware configuration to teach you how that computer hardware functions entirely. These videos will be broken down as much as possible. If you need any help understanding anything in the primers, please don't hesitate  to ask me on Twitch to clear it up, I'm more than happy to help! Even if it's for new development on the hardware, I'll gladly give advice, tips, or even code, to help you out as much as I resonably can. :D
+Modern computers are run by memory that can be read and written to, and is managed by something like Microsoft's Windows, Apple's Mac OS, or Linux. These are called the computers Operating System, or OS. The OS handles the devices connected and interfaces them with software like internet browsers, hard drives, 3d graphics, and much more.

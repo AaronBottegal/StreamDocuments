@@ -1,0 +1,28 @@
+Other Definitions/Terms
+=======================
+
+Processors have a tick to make them function called a clock. It's basically a constant 1 and 0 transition that tells the processor "move to the next task." This is what adjusts the speed of the processor faster or slower.
+
+Clock rate is measured in Hertz, or cycles per second. 1 MHz is 1 million clocks per second. 1 GHz is 1 billion ticks per second. Tick significance varies from processor to processor, as different processors do a different amount of things per "tick."
+
+
+Interrupts
+==========
+
+Interrupts are special requests the processor can have that enable it to react to certain conditions presented by the system, whether it be signaling the video output is ready, or a button was pressed.
+
+Processors can even have multiple interrupts for different things.
+
+The reason for the interrupts varies by each system, but the idea is that they are the main way to tell the system to react to something happening that is important to the system.
+
+
+Endian
+======
+
+Endian is the way the computer references multi-byte values.
+
+A 16-bit number on little endian systems means the least value is stored first, while on big endian it is the most significant first.
+
+E.g. Little endian $4321 is stored as $21,$43 in memory.
+
+E.g. Big endian $4321 is stored as $43,$21 in memory.

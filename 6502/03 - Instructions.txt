@@ -1,30 +1,5 @@
-6502 Overview
-=============
-
-Any questions about anything, ask in chat!
-
-The 6502 is the processor the NES uses. It is an 8 bit processor running at 1.78 million clocks per second.
-It has three main 8-bit "registers": A, X, and Y.
-
-Registers are basically just internal groups of bits you can manipulate with instructions.
-
-Loading and storing values to/from these "registers" are how NES games work.
-
-A is called the accumulator register. It is used for most mathematic operations. E.g. Add and subtract.
-
-The X and Y registers are called the index registers. Indexes registers change what location is accessed.
-E.g. LDA $200,X loads A with the value at $200+X. If X=#$20, it loads data from $220.
-$200,X is called an addressing mode, AKA how to access the data. We will talk more about these on another tab.
-
-The NES also has a special register called the "Processor Status", or P.
-P has special "status" bits that represent the last mathematical operation's results.
-Those status bits are how the instructions know what "decision" to make on moving to other code.
-All instructions which move or alter any values set each flag appropriatly, if applicable. Even simply loading values.
-
-There is another special register called "PC", or program counter. It is where your current code is running.
-It is a 16-bit register, since the NES uses 16 bits of "address space" that can be accessed. $0000 to $FFFF.
-
-Lastly there is another special register called the stack, or "S". We will talk about this more later.
+6502 INSTRUCTIONS
+=================
 
 Main instructions (also called opcodes, operation codes):
     LDA - Load A with a value.
@@ -42,19 +17,21 @@ Main instructions (also called opcodes, operation codes):
     TXA - Transfer X to A.
     TYA - Transfer Y to A.
 
+
 Math opcodes:
     AND - Binary AND with the A register.
     ORA - Binary OR with the A register.
     EOR - Binary EOR with the A register.
-    CMP - Compare A to something.
+    CMP - Compare A to something. All compares operate as if they subtract the register from the value, and set the status flags accordingily.
     CPX - Compare X to something.
     CPY - Compare Y to something.
     ADC - Add to the A register (With carry. If Carry is 1, adds 1 extra.)
     SBC - Subtract from the A register (With carry. If Carry is 0, subtracts 1 extra.)
-    ASL - Arithmatic Shift Left (Multiply by 2) the A register. Brings #0 into bit 0.
-    LSR - Logical Shift Right (Divide by 2) the A register. Brings #0 into bit 7.
+    ASL - Arithmatic Shift Left (Multiply by 2) the A register. Brings #%0 into bit 0.
+    LSR - Logical Shift Right (Divide by 2) the A register. Brings #%0 into bit 7.
     ROL - Rotate all bits in A left. Carry status is brought into bit 0.
     ROR - Rotate all bits in A right. Carry status is brought into bit 7.
+
 
 Flow changing opcodes:
     JMP - Jumps to another piece of code, always done.
@@ -69,6 +46,7 @@ Flow changing opcodes:
     BVS - Branch to other code if the last (signed) math operation change sign.
     BVS - Branch to other code if the last (signed) math operation did not change sign.
 
+
 Other opcodes:
     TXS - Transfer X to S.
     PHP - Push P to the stack.
@@ -76,8 +54,17 @@ Other opcodes:
     PLA - Pull A from the stack.
     PLP - Pull P from the stack.
     RTI - Return from Interrupt.
-    SEC - Set Carry Status.
-    CLC - Clear Carry Status
 
-REMEMBER: ALL instructions change applicable processor status (P) bit.
+
+Processor status opcodes:
+    SEC - Set carry status bit.
+    CLC - Clear carry status bit.
+    SEI - Set interrupt status bit (IRQ Disable)
+    SED - Set decimal mode (Not available on the NES)
+    CLD - Clear decimal status bit (Not available on the NES)
+    CLI - Clear interrupt status bit (IRQ Enabled)
+    CLV - Clear overflow status
+
+
+REMEMBER: Instructions will change applicable processor status (P) bits automatically.
 E.g. Simply loading a value will set the ZERO and SIGNED NEGATIVE bits automatically.

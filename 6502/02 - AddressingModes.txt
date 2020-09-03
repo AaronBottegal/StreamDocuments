@@ -1,27 +1,30 @@
 6502 Addressing Modes
 =====================
 
-Any questions about anything, ask in chat!
+Before we learn the actual instructions of the 6502, we're going to learn about how it uses the registers with addressing modes.
 
-Now that you have a basic understanding of the main 6502 instructions, we have to learn addresssing modes.
+Addressing modes are different ways to access locations.
 
-Addressing modes are different ways to access things. An address is basically "what" you want to manipulate.
-
-Some addressing modes are simply values, like the immediate addressing mode. E.g. #$20
+Some addressing modes are simply values, like the immediate addressing mode. E.g. #$20, a direct value.
 
 Some are actual addresses, like the absolute addressing mode. E.g. $2000
 
 Depending on the complexity of the address mode you use, it can take more clocks to complete the desired operation.
 
+One of the more complicated addressing mode is the indirect addressing modes. These are denoted by parentheses around the address.
+
+They denote that the address referenced resides at that location. E.g. $09 = 00, $10 = $80, ($09) references location $8000.
+
 Some addressing modes add the number of bytes an opcode takes up.
-    E.g. RTS is always a one byte instruction, LDA $20 is two bytes total, but LDA $2000 is three bytes total.
+    E.g. RTS is always a one byte instruction, LDA $20 is two bytes total, and LDA $2000 is three bytes total.
 
 Here are all the different ways addressing modes that instructions can use.
-    NOTE: Not all instructions can use all addressing modes. But basically all can use what they'd logically need.
-    NOTE: You shouldn't have trouble remembering which instructions can use which. You will learn them with time.
+    NOTE: Not all instructions can use all addressing modes. Luckily, nearly all can use what you logically would need.
+    NOTE: You won't have trouble remembering which instructions can use which after a little repetition.
 
-ADDRESSING MODES:
-=================
+
+Addressing Modes
+================
 
 Addressing mode: Implicit
     This mode has no extra information associated. E.g. RTS
@@ -36,20 +39,20 @@ Addressing mode: Absolute
     Works on a given (16-bit) address. E.g. LDA $2000, $2000 is the absolute address.
 
 Addressing mode: Absolute X indexed
-    Works on a given address + X. E.g. X=#$10, LDA $2000,X loads the A register with whatever is at $2010.
+    Works on a given address + X. E.g. X = #$10, LDA $2000,X loads the A register with whatever is at $2010.
 
 Addressing mode: Absolute Y indexed
-    Works on a given address + Y. E.g. X=#$FF, LDA $400,Y loads the A register with whatever is at $4FF.
+    Works on a given address + Y. E.g. X = #$FF, LDA $400,Y loads the A register with whatever is at $4FF.
 
 Zeropage (ZP) is the address $0000 to $00FF. It is special address mode because:
 1. Since only one byte is needed to know where to manipulate the data, the code is smaller.
 2. Because it loads less information, these instructions execute faster.
 
 Addressing mode: Zeropage X indexed
-    Address is $ZP + X. If X=#$05, STA $10,X stores the A register into memory location $15.
+    Address is $ZP + X. If X = #$05, STA $10,X stores the A register into memory location $15.
 
 Addressing mode: Zeropage Y indexed
-    Address is $ZP + Y. If Y=#$03, STA $12,Y stores the A register into memory location $15.
+    Address is $ZP + Y. If Y = #$03, STA $12,Y stores the A register into memory location $15.
 
 Addressing mode: Relative (Branches ONLY)
     Moves the PC (program control) -128 to +127 from (basically the) current position.
@@ -59,12 +62,11 @@ Addressing mode: Indirect
     Goes to address pointed to by address. E.g. JMP ($FFFC) looks at bytes $FFFC and $FFFD, and goes to there.
 
 Addressing mode: Indexed Indirect (ZP only, X index register only)
-    Goes to the address ZP+X points to. E.g. X=#$02, LDA ($10,X), goes to the address pointed to by $12 and $13. 
+    Goes to the address ZP+X points to. E.g. X = #$02, LDA ($10,X), goes to the address pointed to by $12 and $13. 
 
 Addressing mode: Indirect Indexed (ZP only, Y index register only)
-    Goes to the address pointed to by ZP addr, add Y. E.g. Y=#$04, LDA ($08),Y, loads A with whatever $8 and $9 point to, plus Y.
+    Goes to the address pointed to by ZP addr, add Y. E.g. Y = #$04, LDA ($08),Y, loads A with whatever $8 and $9 point to, plus Y.
 
-That's all the addressing modes available! Don't worry about the complex ones. By the time you see them, you'll be great at these.
+Don't sweat about the complex addressing modes. By the time you see them, you'll understand them decently, as the complex ones are somewhat rare because of their slow execution time.
 
-Also, the 6502 is little endian. That means low bytes are FIRST when accessing data. E.g. $2000 is stored as #$00,#$20 in the instruction.
-Also, I won't go into much detail, but the more complex the address mode, the longer it takes to run. (Up to 7 clocks for 1 instruction!)
+Also keep in mind that the 6502 is little endian. That means low bytes are FIRST when accessing data. E.g. $2000 is stored as #$00,#$20 in the instruction.
