@@ -26,3 +26,8 @@ A 16-bit number on little endian systems means the least value is stored first, 
 E.g. Little endian $4321 is stored as $21,$43 in memory.
 
 E.g. Big endian $4321 is stored as $43,$21 in memory.
+
+Index
+=====
+
+An index in computer science is a selector of a group based on a number. E.g. Index value of 3 (#%11) of 4 byte object is 8 bytes offset from the first object. At 0 bytes is object 1, 4 bytes is object 2, and 8 bytes is object 3. This term will be used a lot when a value is used to select a group of data to use, E.g. color palettes or generic data access.

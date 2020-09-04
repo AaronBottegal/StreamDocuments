@@ -1,0 +1,88 @@
+PPU Registers
+=============
+
+    NAME         ADDR    BITS        DESCRIPTION
+    ====         ====    ====        ===========
+    PPU_CTRL     $2000   VPHB SINN   NMI enable (V), PPU master/slave (P), sprite height (H), background tile select (B), sprite tile select (S), increment mode (I), nametable select (NN)
+
+    PPU_MASK     $2001   BGRS bCcG   color emphasis (BGR), sprite enable (S), background enable (b), sprite left column enable (C), background left column enable (c), greyscale (G)
+
+    PPU_STATUS   $2002   VSO- ----   vblank (V), sprite 0 hit (S), sprite overflow (O); Reading resets write index for $2005/$2006.
+
+    OAM_ADDR     $2003   AAAA AAAA   Sprite read/write address.
+
+    OAM_DATA     $2004   DDDD DDDD   Sprite data read/write. NOTE: Unreliable to read.
+
+    PPU_SCROLL   $2005   XXXX XXXX   fine scroll position. (two writes: X scroll, Y scroll)
+
+    PPU_ADDR     $2006   AAAA AAAA   PPU read/write address. (two writes: most significant byte, least significant byte)
+
+    PPU_DATA     $2007   DDDD DDDD   PPU data read/write to address written to PPU_ADDR in PPU address space.
+
+    OAM_DMA      $4014   AAAA AAAA   Sprite DMA high address.
+
+For more in-depth reading, please see https://wiki.nesdev.com/w/index.php/PPU
+
+The PPU is the device that displays the data put into the PPU's RAM by the CPU.
+
+This device is located from $2000 to $2007 on the NES's CPU bus.
+
+While the 2KB RAM is for backgrounds only, the PPU also has 256 bytes of memory internally to hold the sprite data.
+
+Sprites are 8x8 or 8x16 movable objects that (generally) are overlaid on the background layer.
+
+This data is called the OAM, or Object Attribute Memory. It's 4 bytes per sprite, up to 64 sprites in a single screen.
+
+The 4 bytes of sprite data are below the address map for what each piece of sprite data does.
+
+These are uploaded to the NES through the OAM_DMA register, which takes the high address byte and move all in that range from $XX00 to $XXFF into OAM memory inside the PPU.
+
+You can also upload each byte manually, but it is generally buggy and time consuming to get correct.
+
+One thing to note is that the NES has a limit of 8 sprites in a single screen line, meaning if 9 OAM objects are on the same Y position, only the first 8 in OAM memory will be shown!
+
+
+PPU OAM format:
+    
+    Byte  Bits       DESCRIPTION
+    ====  ====       ===========
+    0     YYYY YYYY  Y Position of sprite on screen.
+
+    1     TTTT TTTT  Tile number, #$00 to #$FF. For 16x8 tiles, the first bit (least significant) is the bank number, allowing both bank of graphics used at once.
+
+    2     VHBN NNPP  Vertical Flip (V), Horizontal Flip (H), Behind Background Enable (B), Pallete Select (P) #%00 to #%11.
+
+    3     XXXX XXXX X Position of sprite on screen.
+
+
+Lastly, the PPU also has memory to store the color palette entries.
+
+The palette is from $3F00 to $3F0F for the background layer, and $3F10 to $3F1F for the sprite layer.
+
+$3F00 to $3F03 contains the universal background, along with three colors of color group 0. $3F04 is color group 1 and so on.
+
+$3F10 to $3F03 contains the three sprite colors of group 1, with $3F10 entry (Sprite color %00) always being transparent. $3F14 is group 1 and so on.
+
+To upload this data to the PPU, you use the registers "PPU_ADDR" and "PPU_DATA."
+
+PPU_DATA takes the address you want to access on the PPU bus, be it the graphics ROM, palette, or background data, with two 8-bit writes to make the 16-bit address.
+
+E.g. If you want to upload the universal background color at $3F00, you would write #$3F and then #$00 to this register.
+
+To upload data bytes to that area, you now use the PPU_DATA register to write 8 bit values.
+
+If you noticed in the register, you can set the next address after the PPU_DATA write to either be the next byte, or 32 bytes ahead.
+
+This is because uploading vertical screen graphics needs to increment by 32, the number of tiles in one screen line.
+
+Q: How do I know which byte I'm writing? High or low? A: Reading PPU_STATUS resets this "latch" to always be in a known state, with the high byte going first.
+
+The last big feature to go over is scrolling. You have a course (PPU_CTRL) and fine (PPU_SCROLL) scroll register.
+
+The course scroll is in the PPU_CTRL register for selecting the base table we are fine scrolling over. These bits can also be though of as the most significant bits of the fine scroll.
+
+The fine scroll depends on the same latch as PPU_ADDR and operates the same way, the first write being the fine X scroll (#$00 to #$FF), and the next write being the fine Y scroll. (#$00 to #$EF)
+
+You also can not modify most of the PPU registers when the PPU is displaying a game screen. Otherwise corruption can happen.
+
+That's it for the NES's PPU crash course. If you read this and don't fully understand it, find my youtube video where I go over the PPU and it should be much easier to digest.

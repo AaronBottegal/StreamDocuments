@@ -1,15 +1,13 @@
-APU Hardware Registers
-======================
+APU
+===
 
-Any questions about anything, ask in chat!
+The Audio Processing Unit.
 
-My personal experience with these isn't too hot.
+This is what makes sounds for the NES.
 
-I know they make boops and beeps and drums and samples and everything.
+I'm not going to go over these much, but if you want to learn more about them head over to NESDev Wiki below:
 
-Lots of weird interactions with them, too, with how they work. But it's not too terrible.
-
-To learn these together, I'll go over what we find with the NESDev documentation references with you.
+https://wiki.nesdev.com/w/index.php/APU
 
 APU registers:
 Pulse 1/2: (Used for most beeps and boops.)

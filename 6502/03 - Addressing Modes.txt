@@ -1,9 +1,13 @@
 6502 Addressing Modes
 =====================
 
-Before we learn the actual instructions of the 6502, we're going to learn about how it uses the registers with addressing modes.
+Now that you know (generally) what instructions the 6502 has, we're now ready to learn about addressing modes.
 
 Addressing modes are different ways to access locations.
+
+E.g. Sometimes you might want just a memory location, like $200.
+
+Or sometimes you will want a certain address picked from a pool of addresses, like $200,X.
 
 Some addressing modes are simply values, like the immediate addressing mode. E.g. #$20, a direct value.
 
@@ -44,7 +48,7 @@ Addressing mode: Absolute X indexed
 Addressing mode: Absolute Y indexed
     Works on a given address + Y. E.g. X = #$FF, LDA $400,Y loads the A register with whatever is at $4FF.
 
-Zeropage (ZP) is the address $0000 to $00FF. It is special address mode because:
+Zeropage (ZP) is the address space from $0000 to $00FF. It is special address mode because:
 1. Since only one byte is needed to know where to manipulate the data, the code is smaller.
 2. Because it loads less information, these instructions execute faster.
 
